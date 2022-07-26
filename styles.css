@@ -1,0 +1,40 @@
+body {
+  font-family: arial, sans-serif;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.weather-app-wrapper {
+  margin: 30px auto;
+  max-width: 600px;
+}
+
+.weather-app {
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.weather-temperature img {
+  width: 80px;
+  height: 80px;
+}
+
+.weather-temperature strong {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.weather-temperature .units {
+  position: relative;
+  top: -28px;
+}
