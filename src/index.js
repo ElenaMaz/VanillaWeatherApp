@@ -1,13 +1,14 @@
 let units = "metric";
 let apiKey = "6f07b0316854b26534479a312e2df61c";
 let apiUrl = "https://api.openweathermap.org/data/2.5/weather";
-let tempValueElement = document.querySelector(".temperature");
+let temperatureValueElement = document.querySelector(".temperature");
 let cityElement = document.querySelector(".city");
+let celsiusTemperature = null;
 
 function showTemperature(response) {
   console.log("Response data:", response.data);
-  let temperature = Math.round(response.data.main.temp);
-  tempValueElement.innerHTML = temperature;
+  celsiusTemperature = Math.round(response.data.main.temp);
+  temperatureValueElement.innerHTML = celsiusTemperature;
   let windElement = document.querySelector(".wind");
   windElement.innerHTML = Math.round(response.data.wind.speed);
   let descriptionElement = document.querySelector(".description");
@@ -36,8 +37,29 @@ function search(event) {
   axios.get(apiEndpointByCity).then(showTemperature);
 }
 
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  let temperatureFahrenheit = Math.round(celsiusTemperature * 1.8 + 32);
+  temperatureValueElement.innerHTML = temperatureFahrenheit;
+  convertToFahrenheitTemperature.classList.add("active");
+  convertToCelsiusTemperature.classList.remove("active");
+}
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  temperatureValueElement.innerHTML = celsiusTemperature;
+  convertToCelsiusTemperature.classList.add("active");
+  convertToFahrenheitTemperature.classList.remove("active");
+}
+
 let searchButton = document.querySelector("#search");
 searchButton.addEventListener("submit", search);
+
+let convertToFahrenheitTemperature = document.querySelector("#fahrenheit");
+convertToFahrenheitTemperature.addEventListener("click", convertToFahrenheit);
+
+let convertToCelsiusTemperature = document.querySelector("#celsius");
+convertToCelsiusTemperature.addEventListener("click", convertToCelsius);
 
 //Date&Time
 

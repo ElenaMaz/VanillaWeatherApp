@@ -24,6 +24,10 @@ li {
   padding: 20px;
 }
 
+h1::first-letter {
+  text-transform: capitalize;
+}
+
 .weather-temperature img {
   width: 80px;
   height: 80px;
@@ -37,4 +41,14 @@ li {
 .weather-temperature .units {
   position: relative;
   top: -28px;
+}
+
+.units .active {
+  color: black;
+  cursor: default;
+  text-decoration: none;
+}
+
+.units .active :hover {
+  text-decoration: none;
 }
