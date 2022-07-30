@@ -11,6 +11,8 @@ function showTemperature(response) {
   temperatureValueElement.innerHTML = celsiusTemperature;
   let windElement = document.querySelector(".wind");
   windElement.innerHTML = Math.round(response.data.wind.speed);
+  let humidityElement = document.querySelector(".humidity");
+  humidityElement.innerHTML = Math.round(response.data.main.humidity);
   let descriptionElement = document.querySelector(".description");
   descriptionElement.innerHTML = response.data.weather[0].description;
   let iconElement = document.querySelector("#icon");
