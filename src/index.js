@@ -9,6 +9,7 @@ function showTemperature(response) {
   console.log("Response data:", response.data);
   celsiusTemperature = Math.round(response.data.main.temp);
   temperatureValueElement.innerHTML = celsiusTemperature;
+  cityElement.innerHTML = response.data.name;
   let windElement = document.querySelector(".wind");
   windElement.innerHTML = Math.round(response.data.wind.speed);
   let humidityElement = document.querySelector(".humidity");
@@ -26,7 +27,6 @@ function search(event) {
   let searchInputElement = document.querySelector("#search-input");
   console.log(searchInputElement);
   let city = searchInputElement.value;
-  console.log(city);
 
   if (city.length > 0) {
     cityElement.innerHTML = city;
