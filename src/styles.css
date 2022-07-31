@@ -30,10 +30,6 @@ li {
   padding: 20px;
 }
 
-h1::first-letter {
-  text-transform: capitalize;
-}
-
 .weather-temperature img {
   width: 80px;
   height: 80px;
@@ -57,4 +53,14 @@ h1::first-letter {
 
 .units .active :hover {
   text-decoration: none;
+}
+
+.weather-forecast {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.temperature-min,
+.forecast-date {
+  opacity: 0.5;
 }
