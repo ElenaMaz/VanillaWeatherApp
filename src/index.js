@@ -13,7 +13,6 @@ function displayFormatedDay(timestamp) {
 }
 
 function displayForecastWeather(response) {
-  console.log(response.data.daily);
   let forecastElement = document.querySelector(".weather-forecast");
   let forecast = response.data.daily;
   let forecastHTMLCode = `<div class="row">`;
@@ -49,7 +48,6 @@ function displayForecastWeather(response) {
 }
 
 function getForecasetByCoord(coordinates) {
-  console.log("Coordinates:", coordinates);
   let lat = coordinates.lat;
   let lon = coordinates.lon;
   let forecastApiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
@@ -57,7 +55,6 @@ function getForecasetByCoord(coordinates) {
 }
 
 function showTemperature(response) {
-  console.log("Response data:", response.data);
   celsiusTemperature = Math.round(response.data.main.temp);
   temperatureValueElement.innerHTML = celsiusTemperature;
   cityElement.innerHTML = response.data.name;
@@ -78,11 +75,10 @@ function showTemperature(response) {
 function search(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
-  console.log(searchInputElement);
   let city = searchInputElement.value;
 
   if (city.length <= 0) {
-    alert("Enter your city name");
+    alert("Please enter a city");
     return;
   }
 
