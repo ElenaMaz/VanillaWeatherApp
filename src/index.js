@@ -5,6 +5,57 @@ let temperatureValueElement = document.querySelector(".temperature");
 let cityElement = document.querySelector(".city");
 let celsiusTemperature = null;
 
+function displayFormatedDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let numberOfDay = date.getDay();
+  let day = days[numberOfDay];
+  return day;
+}
+
+function displayForecastWeather(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector(".weather-forecast");
+  let forecast = response.data.daily;
+  let forecastHTMLCode = `<div class="row">`;
+  forecast.forEach(function (forecastDayWeather, index) {
+    if (index < 6) {
+      forecastHTMLCode =
+        forecastHTMLCode +
+        `<div class="col-2">
+      <div class="forecast-date">${displayFormatedDay(
+        forecastDayWeather.dt
+      )} </div>
+      <img src="http://openweathermap.org/img/wn/${
+        forecastDayWeather.weather[0].icon
+      }@2x.png"
+            alt=""
+            class="forecast-icon"
+            width="42"
+            />
+            <div class="forecast-temperature">
+            <span class="temperature-max"> ${Math.round(
+              forecastDayWeather.temp.max
+            )}°</span>
+            <span class="temperature-min">${Math.round(
+              forecastDayWeather.temp.min
+            )}°</span>
+            </div>
+            </div>`;
+    }
+  });
+
+  forecastHTMLCode = forecastHTMLCode + `</div>`;
+  forecastElement.innerHTML = forecastHTMLCode;
+}
+
+function getForecasetByCoord(coordinates) {
+  console.log("Coordinates:", coordinates);
+  let lat = coordinates.lat;
+  let lon = coordinates.lon;
+  let forecastApiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
+  axios.get(forecastApiURL).then(displayForecastWeather);
+}
+
 function showTemperature(response) {
   console.log("Response data:", response.data);
   celsiusTemperature = Math.round(response.data.main.temp);
@@ -20,6 +71,8 @@ function showTemperature(response) {
   let getIconCode = response.data.weather[0].icon;
   let iconUrl = `http://openweathermap.org/img/wn/${getIconCode}@2x.png`;
   iconElement.setAttribute("src", iconUrl);
+
+  getForecasetByCoord(response.data.coord);
 }
 
 function search(event) {
@@ -28,9 +81,7 @@ function search(event) {
   console.log(searchInputElement);
   let city = searchInputElement.value;
 
-  if (city.length > 0) {
-    cityElement.innerHTML = city;
-  } else {
+  if (city.length <= 0) {
     alert("Enter your city name");
     return;
   }
