@@ -86,6 +86,12 @@ function search(event) {
   axios.get(apiEndpointByCity).then(showTemperature);
 }
 
+function searchDefaulCitytWeather(city) {
+  let apiEndpointByCity = `${apiUrl}?q=${city}&appid=${apiKey}&units=${units}`;
+  axios.get(apiEndpointByCity).then(showTemperature);
+}
+searchDefaulCitytWeather("Cherkasy");
+
 function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureFahrenheit = Math.round(celsiusTemperature * 1.8 + 32);
